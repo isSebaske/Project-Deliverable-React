@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ProductsList from "./com/productsList";
 import { getProducts } from "./data/ItemsData";
 
-class App extends Component {
+class Store extends Component {
 
   state = { products: getProducts() } 
 
@@ -13,4 +13,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Store;
