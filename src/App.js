@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     products: [],
     cartItems: [],
+    randomItem: [],
     currentPage: 1,
     pageSize: 3,
     sortColumn: { path: "id", order: "asc" },
@@ -21,7 +22,9 @@ class App extends Component {
 
   componentDidMount() {
     const products = getProducts();
-    this.setState({ products });
+    const randomItem = products[Math.floor(Math.random() * products.length)];
+    console.log(randomItem);
+    this.setState({ products, randomItem });
   }
 
   updateProductQuantity = (id, change) => {
@@ -83,6 +86,15 @@ class App extends Component {
     this.setState({ cartItems });
   };
 
+  handleRandomItem = () => {
+    const randomItem =
+      this.state.products[
+        Math.floor(Math.random() * this.state.products.length)
+      ];
+
+    return { randomItem };
+  };
+
   getFilteredProducts = () => {
     const { products, searchTerm, sortColumn } = this.state;
 
@@ -105,6 +117,7 @@ class App extends Component {
       selectedSortGrup,
       searchTerm,
       sortGrups,
+      randomItem,
     } = this.state;
 
     return (
@@ -112,7 +125,10 @@ class App extends Component {
         <NavBar />
         <div>
           <Switch>
-            <Route path="/home" component={Home} />
+            <Route
+              path="/home"
+              render={() => <Home randomItem={randomItem} />}
+            />
             <Route
               path="/shop/cart"
               render={() => (

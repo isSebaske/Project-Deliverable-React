@@ -1,3 +1,8 @@
+html {
+    padding: 0;
+    margin: 0;
+}
+
 
 /* cart page image css */
 #img {
@@ -27,7 +32,7 @@
 /* animation for home page */
 .staggered-title .line {
     display: inline-block;
-    padding: 10px;
+    padding: 0px 10px 0px 10px;
     font-size: 3rem;
     font-weight: bold;
     color: #333;
@@ -42,13 +47,13 @@
     /* What */
 }
 
-.staggered-title :nth-child(3) {
-    animation-delay: 0.6s;
+.staggered-title :nth-child(2) {
+    animation-delay: 0.4s;
     /* I.S */
 }
 
-.staggered-title :nth-child(5) {
-    animation-delay: 1s;
+.staggered-title :nth-child(3) {
+    animation-delay: 0.6s;
     /* Fashion */
 }
 
@@ -65,12 +70,24 @@
 }
 /* end of animation css*/
 
-/* placeholder css */
-.placeholder {
+/* random Item css */
+#randomItem {
     background: #eaeaea;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 200px;
+    margin: auto;
+    outline: solid 1px rgb(10, 10, 10);
+    border-radius: 4px;
 }
 /* End */
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+h3 {
+    font-size: medium;
+    width: 500px;
+    margin: auto;
+    padding-bottom: 20px;
+}
