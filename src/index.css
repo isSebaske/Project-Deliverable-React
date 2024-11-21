@@ -18,15 +18,30 @@ html {
 
 /* side cart on the cart page */
  #aside {
-    outline: solid 1px rgb(224, 224, 224);
     border-radius: 4px;
-} 
-
-#aside {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: sideCart ease-in-out 0.5s forwards;
+    animation-play-state: paused;
     position: absolute;
     right: 0;
-    top: 113px;  
+    top: 112px;
+    overflow-y: auto;
+    max-height: 551px;
+} 
+
+@keyframes sideCart {
+    0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
 }
+
 /* End */
 
 /* animation for home page */
@@ -74,7 +89,6 @@ html {
 #randomItem {
     width: 400px;
     margin: auto;
-    outline: solid 2px rgb(48, 48, 48);
     border-radius: 4px;
 }
 /* End */
@@ -91,6 +105,7 @@ h3 {
     padding-bottom: 20px;
 }
 
+/* for the acrive class so that it is not blue */
 .active a {
     background-color: rgb(20, 20, 20) !important;
 }
@@ -98,3 +113,5 @@ h3 {
 .SortGroups .list-group-item.active {
     background-color: rgb(20, 20, 20) !important;
 }
+/* End */
+

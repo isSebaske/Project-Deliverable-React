@@ -22,6 +22,7 @@ const Pagination = (props) => {
             }
           >
             <a
+              href
               className="page-link border border-dark"
               onClick={() => onPageChange(page)}
             >

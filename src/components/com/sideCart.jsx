@@ -1,5 +1,6 @@
 import React from "react";
 import CartBtn from "./cartBtn";
+import AddAndRemoveBtn from "./addAndRemoveBtn";
 
 const SideCart = ({ cartItems }) => {
   const totalPrice = cartItems.reduce(
@@ -8,14 +9,23 @@ const SideCart = ({ cartItems }) => {
   );
 
   return (
-    <aside className="border border-dark p-3" id="aside">
+    <aside
+      className="border border-dark p-3"
+      id="aside"
+      style={{
+        animationPlayState: cartItems.length === 0 ? "paused" : "running",
+      }}
+    >
       <h5 className="text-center">Your Cart</h5>
       <div>
         {cartItems.map((item, index) => (
-          <div key={index} className="card mb-2">
-            <div className="card-body p-2">
-              <p className="card-text mb-1">{item.name}</p>
-              <p className="card-text mb-1">Qty: {item.quantity}</p>
+          <div key={index} className="card mb-2 ">
+            <div className="card-body p-2 d-flex">
+              <div className="pe-2">
+                <p className="card-text mb-1">{item.name}</p>
+                <p className="card-text mb-1">Qty: {item.quantity}</p>
+              </div>
+              <AddAndRemoveBtn i={"v"} />
             </div>
           </div>
         ))}

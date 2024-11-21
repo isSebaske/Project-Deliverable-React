@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AddAndRemoveBtn from "./com/addAndRemoveBtn";
 
 class Cart extends Component {
   state = {
@@ -38,16 +39,24 @@ class Cart extends Component {
                   {cartItems.map((item, index) => (
                     <div key={index} className="col mb-4">
                       <div className="card shadow-sm">
-                        <div className="card-body">
+                        <div className="card-body d-flex justify-content-between">
                           <h5 className="card-title">{item.name}</h5>
                           <p className="card-text">
                             <strong>Quantity:</strong> {item.quantity}
                           </p>
+
                           <p className="card-text">
                             <strong>Item Total:</strong> $
                             {(item.price * item.quantity).toFixed(2)}
                           </p>
+                          <AddAndRemoveBtn />
                         </div>
+                        <img
+                          src={item.image}
+                          alt={item.description}
+                          className="img-fluid rounded-top"
+                          id="img"
+                        />
                       </div>
                     </div>
                   ))}

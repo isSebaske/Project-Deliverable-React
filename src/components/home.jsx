@@ -24,7 +24,7 @@ const Home = ({ randomItem, onRandomTiem }) => {
       </div>
       <div>
         <h2 className="mb-4">Featured Item</h2>
-        <div id="randomItem" className="shadow p-0">
+        <div id="randomItem" className="shadow border border-dark p-0">
           <img
             src={randomItem.image}
             alt={randomItem.description}
