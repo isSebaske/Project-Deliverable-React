@@ -6,8 +6,8 @@ class Product extends Component {
     const { product, addToCart } = this.props;
 
     return (
-      <div className="card btn btn-outline-dark shadow p-0">
-        <div className="card-header p-0 bg-white border-0 ">
+      <div className="card shadow p-0 border border-dark">
+        <div className="card-header p-0 bg-white border-bottom border-dark ">
           <img
             src={product.image}
             alt={product.description}
@@ -23,14 +23,14 @@ class Product extends Component {
           </p>
           {product.quantity === 0 ? (
             <button
-              className="btn btn-primary disabled"
+              className="btn btn-outline-dark disabled"
               onClick={() => addToCart(product.id)}
             >
               Out Of Stock
             </button>
           ) : (
             <button
-              className="btn btn-primary"
+              className="btn btn-outline-dark"
               onClick={() => addToCart(product.id)}
             >
               ${product.price}

@@ -12,11 +12,11 @@ const ProductsList = ({
   selectedSortGrup,
   sortGrups,
   cartItems,
-  products,
   onAddToCart,
   onPageChange,
   onSort,
   onSearch,
+  searchTerm,
   getFilteredProducts,
 }) => {
   const filteredProducts = getFilteredProducts();
@@ -30,7 +30,7 @@ const ProductsList = ({
           sortGrups={sortGrups}
           selectedSortGrup={selectedSortGrup}
         />
-        <SearchInputBox onSearch={onSearch} />
+        <SearchInputBox onSearch={onSearch} value={searchTerm} />
       </div>
 
       {paginatedProducts.map((item) => (

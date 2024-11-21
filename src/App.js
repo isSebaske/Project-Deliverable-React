@@ -23,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     const products = getProducts();
     const randomItem = products[Math.floor(Math.random() * products.length)];
-    console.log(randomItem);
+
     this.setState({ products, randomItem });
   }
 
@@ -87,12 +87,9 @@ class App extends Component {
   };
 
   handleRandomItem = () => {
-    const randomItem =
-      this.state.products[
-        Math.floor(Math.random() * this.state.products.length)
-      ];
-
-    return { randomItem };
+    const randName = this.state.randomItem.name;
+    console.log(randName);
+    this.setState({ searchTerm: randName });
   };
 
   getFilteredProducts = () => {
@@ -127,7 +124,12 @@ class App extends Component {
           <Switch>
             <Route
               path="/home"
-              render={() => <Home randomItem={randomItem} />}
+              render={() => (
+                <Home
+                  randomItem={randomItem}
+                  onRandomTiem={this.handleRandomItem}
+                />
+              )}
             />
             <Route
               path="/shop/cart"
@@ -149,11 +151,11 @@ class App extends Component {
                   sortColumn={sortColumn}
                   sortGrups={sortGrups}
                   selectedSortGrup={selectedSortGrup}
-                  searchTerm={searchTerm}
                   onAddToCart={(id) => this.handleAddToCart(id)}
                   onPageChange={this.handlePageChange}
                   onSort={this.handleSort}
                   onSearch={this.handleSearch}
+                  searchTerm={searchTerm}
                   getFilteredProducts={this.getFilteredProducts}
                 />
               )}

@@ -72,10 +72,9 @@ html {
 
 /* random Item css */
 #randomItem {
-    background: #eaeaea;
-    width: 200px;
+    width: 400px;
     margin: auto;
-    outline: solid 1px rgb(10, 10, 10);
+    outline: solid 2px rgb(48, 48, 48);
     border-radius: 4px;
 }
 /* End */
@@ -90,4 +89,12 @@ h3 {
     width: 500px;
     margin: auto;
     padding-bottom: 20px;
+}
+
+.active a {
+    background-color: rgb(20, 20, 20) !important;
+}
+
+.SortGroups .list-group-item.active {
+    background-color: rgb(20, 20, 20) !important;
 }

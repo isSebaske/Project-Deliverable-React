@@ -8,7 +8,7 @@ const SideCart = ({ cartItems }) => {
   );
 
   return (
-    <aside className=" p-3" id="aside">
+    <aside className="border border-dark p-3" id="aside">
       <h5 className="text-center">Your Cart</h5>
       <div>
         {cartItems.map((item, index) => (

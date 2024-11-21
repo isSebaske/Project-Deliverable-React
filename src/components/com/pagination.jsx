@@ -11,7 +11,7 @@ const Pagination = (props) => {
 
   return (
     <nav>
-      <ul className="pagination pt-2">
+      <ul className="pagination   pt-2">
         {pages.map((page) => (
           <li
             key={page}
@@ -21,7 +21,10 @@ const Pagination = (props) => {
                 : "page-item shadow rounded-2"
             }
           >
-            <a className="page-link" onClick={() => onPageChange(page)}>
+            <a
+              className="page-link border border-dark"
+              onClick={() => onPageChange(page)}
+            >
               {page}
             </a>
           </li>

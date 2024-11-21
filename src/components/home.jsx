@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-const Home = ({ randomItem }) => {
+const Home = ({ randomItem, onRandomTiem }) => {
   return (
     <div className="container text-center mt-5">
       <div className="title-section my-5">
@@ -23,17 +24,20 @@ const Home = ({ randomItem }) => {
       </div>
       <div>
         <h2 className="mb-4">Featured Item</h2>
-        <div>
-          <div id="randomItem">
-            <img
-              src={randomItem.image}
-              alt={randomItem.description}
-              className="img-fluid rounded-top"
-              id="img"
-            />
-            <p>{randomItem.name}</p>
-            <p>{randomItem.description}</p>
-          </div>
+        <div id="randomItem" className="shadow p-0">
+          <img
+            src={randomItem.image}
+            alt={randomItem.description}
+            className="img-fluid rounded-top"
+            id="img"
+          />
+          <p>{randomItem.name}</p>
+          <p>{randomItem.description}</p>
+          <Link to="/shop">
+            <button className="btn btn-outline-dark" onClick={onRandomTiem}>
+              Get
+            </button>
+          </Link>
         </div>
       </div>
     </div>
