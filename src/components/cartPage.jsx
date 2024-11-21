@@ -56,7 +56,7 @@ class Cart extends Component {
                 <div className="d-flex justify-content-between align-items-center border-top pt-3 mt-3">
                   <h5>Total: ${totalPrice.toFixed(2)}</h5>
                   <button
-                    className="btn btn-primary shadow-sm"
+                    className="btn btn-dark shadow-sm"
                     onClick={this.handleCheckout}
                   >
                     Checkout
@@ -68,7 +68,7 @@ class Cart extends Component {
         )}
 
         <div className="text-center mt-4">
-          <Link className="btn btn-outline-primary shadow-sm" to="/shop">
+          <Link className="btn btn-outline-dark shadow-sm" to="/shop">
             Continue Shopping
           </Link>
         </div>
