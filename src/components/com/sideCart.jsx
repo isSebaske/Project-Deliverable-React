@@ -2,7 +2,7 @@ import React from "react";
 import CartBtn from "./cartBtn";
 import AddAndRemoveBtn from "./addAndRemoveBtn";
 
-const SideCart = ({ cartItems }) => {
+const SideCart = ({ cartItems, addOrRemove }) => {
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -25,7 +25,10 @@ const SideCart = ({ cartItems }) => {
                 <p className="card-text mb-1">{item.name}</p>
                 <p className="card-text mb-1">Qty: {item.quantity}</p>
               </div>
-              <AddAndRemoveBtn i={"v"} />
+              <AddAndRemoveBtn
+                i={"v"}
+                addOrRemove={(change) => addOrRemove(item.id, change)}
+              />
             </div>
           </div>
         ))}

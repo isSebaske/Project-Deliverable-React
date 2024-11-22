@@ -49,7 +49,11 @@ class Cart extends Component {
                             <strong>Item Total:</strong> $
                             {(item.price * item.quantity).toFixed(2)}
                           </p>
-                          <AddAndRemoveBtn />
+                          <AddAndRemoveBtn
+                            addOrRemove={(change) =>
+                              this.props.onAddOrReamove(item.id, change)
+                            }
+                          />
                         </div>
                         <img
                           src={item.image}

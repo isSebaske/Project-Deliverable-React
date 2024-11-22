@@ -12,7 +12,7 @@ const ProductsList = ({
   selectedSortGrup,
   sortGrups,
   cartItems,
-  onAddToCart,
+  onAddOrReamove,
   onPageChange,
   onSort,
   onSearch,
@@ -35,7 +35,10 @@ const ProductsList = ({
 
       {paginatedProducts.map((item) => (
         <div className="col-3 p-5 mt-2" key={item.id}>
-          <Product product={item} addToCart={() => onAddToCart(item.id)} />
+          <Product
+            product={item}
+            addToCart={() => onAddOrReamove(item.id, 1)}
+          />
         </div>
       ))}
 
@@ -49,7 +52,10 @@ const ProductsList = ({
       </div>
 
       <div>
-        <SideCart cartItems={cartItems} />
+        <SideCart
+          cartItems={cartItems}
+          addOrRemove={(id, change) => onAddOrReamove(id, change)}
+        />
       </div>
     </div>
   );

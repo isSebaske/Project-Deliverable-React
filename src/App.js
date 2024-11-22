@@ -28,36 +28,48 @@ class App extends Component {
   }
 
   updateProductQuantity = (id, change) => {
-    const updatedProducts = [...this.state.products];
-    const productIndex = updatedProducts.findIndex(
-      (product) => product.id === id
-    );
+    const updatedProducts = this.state.products.map((product) => {
+      if (product.id === id) {
+        const newQuantity = product.quantity + change;
+        if (newQuantity >= 0) {
+          return { ...product, quantity: newQuantity };
+        }
+      }
+      return product;
+    });
 
-    if (productIndex !== -1) {
-      updatedProducts[productIndex].quantity += change;
-      this.setState({ products: updatedProducts });
-    }
+    this.setState({ products: updatedProducts });
   };
 
-  handleAddToCart = (id) => {
-    const cartItems = [...this.state.cartItems] || [];
-    const matchProductIndex = this.state.products.findIndex((i) => i.id === id);
-    const matchProduct = this.state.products[matchProductIndex];
-    const existingProductIndex = cartItems.findIndex((item) => item.id === id);
+  updateCartItemQuantity = (id, change) => {
+    const cartItems = [...this.state.cartItems];
+    const product = this.state.products.find((product) => product.id === id);
+    const cartItemIndex = cartItems.findIndex((item) => item.id === id);
 
-    if (existingProductIndex !== -1) {
-      const availableQuantity = matchProduct.quantity;
+    if (cartItemIndex !== -1) {
+      const cartItem = cartItems[cartItemIndex];
 
-      if (availableQuantity > 0) {
-        cartItems[existingProductIndex].quantity++;
-        this.updateProductQuantity(id, -1);
+      if (product.quantity !== 0 || (product.quantity === 0 && change === -1)) {
+        cartItem.quantity += change;
       }
-    } else {
-      cartItems.push({ ...matchProduct, quantity: 1 });
-      this.updateProductQuantity(id, -1);
+      if (cartItem.quantity <= 0) {
+        cartItems.splice(cartItemIndex, 1);
+      }
+    } else if (change > 0 && product.quantity >= 1) {
+      cartItems.push({ ...product, quantity: 1 });
     }
 
     this.setState({ cartItems });
+  };
+
+  handleAddOrReamove = (id, change) => {
+    if (change === 1) {
+      this.updateCartItemQuantity(id, 1);
+      this.updateProductQuantity(id, -1);
+    } else {
+      this.updateCartItemQuantity(id, -1);
+      this.updateProductQuantity(id, 1);
+    }
   };
 
   handlePageChange = (page) => {
@@ -137,6 +149,9 @@ class App extends Component {
                 <Cart
                   cartItems={cartItems}
                   onClearCart={this.handleClearCart}
+                  onAddOrReamove={(id, change) =>
+                    this.handleAddOrReamove(id, change)
+                  }
                 />
               )}
             />
@@ -151,7 +166,9 @@ class App extends Component {
                   sortColumn={sortColumn}
                   sortGrups={sortGrups}
                   selectedSortGrup={selectedSortGrup}
-                  onAddToCart={(id) => this.handleAddToCart(id)}
+                  onAddOrReamove={(id, change) =>
+                    this.handleAddOrReamove(id, change)
+                  }
                   onPageChange={this.handlePageChange}
                   onSort={this.handleSort}
                   onSearch={this.handleSearch}
