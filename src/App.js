@@ -4,6 +4,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Cart from "./components/cartPage";
 import NavBar from "./components/navBar";
 import Home from "./components/home";
+import LoginPage from "./components/loginPage";
+import { getUsers } from "./data/userData";
 import { getProducts } from "./data/ItemsData";
 import _ from "lodash";
 
@@ -18,6 +20,7 @@ class App extends Component {
     sortGrups: ["id", "name", "description", "price", "quantity"],
     selectedSortGrup: "id",
     searchTerm: "",
+    loggedInUser: null,
   };
 
   componentDidMount() {
@@ -100,8 +103,21 @@ class App extends Component {
 
   handleRandomItem = () => {
     const randName = this.state.randomItem.name;
-    console.log(randName);
     this.setState({ searchTerm: randName });
+  };
+
+  handleLogin = (email, password) => {
+    const users = getUsers();
+    const user = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (user) {
+      this.setState({ loggedInUser: user });
+      return true;
+    } else {
+      return false;
+    }
   };
 
   getFilteredProducts = () => {
@@ -176,6 +192,10 @@ class App extends Component {
                   getFilteredProducts={this.getFilteredProducts}
                 />
               )}
+            />
+            <Route
+              path="/login"
+              render={() => <LoginPage onLogin={this.handleLogin} />}
             />
             <Redirect from="/" exact to="/home" />
           </Switch>

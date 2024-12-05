@@ -47,6 +47,6 @@ const products = [
 ];
 
 export function getProducts() {
-  console.log(products);
+  // console.log(products);
   return products;
 }
