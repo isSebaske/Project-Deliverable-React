@@ -5,6 +5,7 @@ import Cart from "./components/cartPage";
 import NavBar from "./components/navBar";
 import Home from "./components/home";
 import LoginPage from "./components/loginPage";
+import AdminPage from "./components/adminPage";
 import { getUsers } from "./data/userData";
 import { getProducts } from "./data/ItemsData";
 import _ from "lodash";
@@ -20,7 +21,9 @@ class App extends Component {
     sortGrups: ["id", "name", "description", "price", "quantity"],
     selectedSortGrup: "id",
     searchTerm: "",
-    loggedInUser: null,
+    loggedInUser: {
+      email: "",
+    },
   };
 
   componentDidMount() {
@@ -114,6 +117,7 @@ class App extends Component {
 
     if (user) {
       this.setState({ loggedInUser: user });
+      console.log(this.state.loggedInUser);
       return true;
     } else {
       return false;
@@ -143,11 +147,12 @@ class App extends Component {
       searchTerm,
       sortGrups,
       randomItem,
+      loggedInUser,
     } = this.state;
 
     return (
       <div className="App">
-        <NavBar />
+        <NavBar loggedInUser={loggedInUser} />
         <div>
           <Switch>
             <Route
@@ -185,17 +190,25 @@ class App extends Component {
                   onAddOrReamove={(id, change) =>
                     this.handleAddOrReamove(id, change)
                   }
+                  restock={(id, change) =>
+                    this.updateProductQuantity(id, change)
+                  }
                   onPageChange={this.handlePageChange}
                   onSort={this.handleSort}
                   onSearch={this.handleSearch}
                   searchTerm={searchTerm}
                   getFilteredProducts={this.getFilteredProducts}
+                  loggedInUser={loggedInUser}
                 />
               )}
             />
             <Route
               path="/login"
               render={() => <LoginPage onLogin={this.handleLogin} />}
+            />
+            <Route
+              path="/admin"
+              render={() => <AdminPage loggedInUser={loggedInUser} />}
             />
             <Redirect from="/" exact to="/home" />
           </Switch>

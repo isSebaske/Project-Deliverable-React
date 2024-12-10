@@ -18,6 +18,8 @@ const ProductsList = ({
   onSearch,
   searchTerm,
   getFilteredProducts,
+  restock,
+  loggedInUser,
 }) => {
   const filteredProducts = getFilteredProducts();
   const paginatedProducts = paginate(filteredProducts, currentPage, pageSize);
@@ -38,6 +40,8 @@ const ProductsList = ({
           <Product
             product={item}
             addToCart={() => onAddOrReamove(item.id, 1)}
+            restock={() => restock(item.id, 1)}
+            loggedInUser={loggedInUser}
           />
         </div>
       ))}

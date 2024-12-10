@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const success = onLogin(email, password);
     if (success) {
-      window.location.href = "/home";
+      history.goBack();
     } else {
       setError("Invalid email or password.");
     }
