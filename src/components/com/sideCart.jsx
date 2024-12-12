@@ -27,7 +27,7 @@ const SideCart = ({ cartItems, addOrRemove }) => {
               </div>
               <AddAndRemoveBtn
                 i={"v"}
-                addOrRemove={(change) => addOrRemove(item.id, change)}
+                addOrRemove={(change) => addOrRemove(item._id, change)}
               />
             </div>
           </div>

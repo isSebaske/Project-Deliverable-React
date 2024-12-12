@@ -51,7 +51,7 @@ class Cart extends Component {
                           </p>
                           <AddAndRemoveBtn
                             addOrRemove={(change) =>
-                              this.props.onAddOrReamove(item.id, change)
+                              this.props.onAddOrReamove(item._id, change)
                             }
                           />
                         </div>

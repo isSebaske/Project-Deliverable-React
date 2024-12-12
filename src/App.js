@@ -7,7 +7,7 @@ import Home from "./components/home";
 import LoginPage from "./components/loginPage";
 import AdminPage from "./components/adminPage";
 import { getUsers } from "./data/userData";
-import { getProducts } from "./data/ItemsData";
+import { getItems } from "./data/ItemsData";
 import _ from "lodash";
 
 class App extends Component {
@@ -17,25 +17,26 @@ class App extends Component {
     randomItem: [],
     currentPage: 1,
     pageSize: 3,
-    sortColumn: { path: "id", order: "asc" },
-    sortGrups: ["id", "name", "description", "price", "quantity"],
-    selectedSortGrup: "id",
+    sortColumn: { path: "name", order: "asc" },
+    sortGrups: ["name", "description", "price", "quantity"],
+    selectedSortGrup: "name",
     searchTerm: "",
     loggedInUser: {
       email: "",
     },
   };
 
-  componentDidMount() {
-    const products = getProducts();
-    const randomItem = products[Math.floor(Math.random() * products.length)];
+  async componentDidMount() {
+    const { data } = await getItems();
+    console.log(await getItems());
+    const randomItem = await data[Math.floor(Math.random() * data.length)];
 
-    this.setState({ products, randomItem });
+    this.setState({ products: data, randomItem });
   }
 
   updateProductQuantity = (id, change) => {
     const updatedProducts = this.state.products.map((product) => {
-      if (product.id === id) {
+      if (product._id === id) {
         const newQuantity = product.quantity + change;
         if (newQuantity >= 0) {
           return { ...product, quantity: newQuantity };
@@ -49,8 +50,8 @@ class App extends Component {
 
   updateCartItemQuantity = (id, change) => {
     const cartItems = [...this.state.cartItems];
-    const product = this.state.products.find((product) => product.id === id);
-    const cartItemIndex = cartItems.findIndex((item) => item.id === id);
+    const product = this.state.products.find((product) => product._id === id);
+    const cartItemIndex = cartItems.findIndex((item) => item._id === id);
 
     if (cartItemIndex !== -1) {
       const cartItem = cartItems[cartItemIndex];
@@ -117,7 +118,6 @@ class App extends Component {
 
     if (user) {
       this.setState({ loggedInUser: user });
-      console.log(this.state.loggedInUser);
       return true;
     } else {
       return false;

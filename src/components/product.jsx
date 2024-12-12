@@ -24,20 +24,18 @@ const Product = ({ product, addToCart, restock, loggedInUser }) => {
               +
             </button>
           ) : null}
-          ID:
-          {product.id}
         </p>
         {product.quantity === 0 ? (
           <button
             className="btn btn-outline-dark disabled"
-            onClick={() => addToCart(product.id)}
+            onClick={() => addToCart(product._id)}
           >
             Out Of Stock
           </button>
         ) : (
           <button
             className="btn btn-outline-dark"
-            onClick={() => addToCart(product.id)}
+            onClick={() => addToCart(product._id)}
           >
             ${product.price}
           </button>

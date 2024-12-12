@@ -36,11 +36,11 @@ const ProductsList = ({
       </div>
 
       {paginatedProducts.map((item) => (
-        <div className="col-3 p-5 mt-2" key={item.id}>
+        <div className="col-3 p-5 mt-2" key={item._id}>
           <Product
             product={item}
-            addToCart={() => onAddOrReamove(item.id, 1)}
-            restock={() => restock(item.id, 1)}
+            addToCart={() => onAddOrReamove(item._id, 1)}
+            restock={() => restock(item._id, 1)}
             loggedInUser={loggedInUser}
           />
         </div>
