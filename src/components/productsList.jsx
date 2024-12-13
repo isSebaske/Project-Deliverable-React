@@ -5,6 +5,7 @@ import Pagination from "./com/pagination";
 import SortGroups from "./com/sortGroups";
 import SideCart from "./com/sideCart";
 import SearchInputBox from "./com/searchInput";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProductsList = ({
   currentPage,
@@ -33,6 +34,11 @@ const ProductsList = ({
           selectedSortGrup={selectedSortGrup}
         />
         <SearchInputBox onSearch={onSearch} value={searchTerm} />
+        {loggedInUser.permission ? (
+          <Link to="/shop/new" className="btn btn-outline-dark m-3 ">
+            Add Product
+          </Link>
+        ) : null}
       </div>
 
       {paginatedProducts.map((item) => (

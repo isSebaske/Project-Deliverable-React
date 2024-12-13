@@ -16,7 +16,7 @@ const NavBar = ({ loggedInUser }) => {
           <NavLink className="nav-item nav-link" to="/shop">
             Shop
           </NavLink>
-          <NavLink className="nav-item nav-link" to="/shop/cart">
+          <NavLink className="nav-item nav-link" to="/cart">
             Cart
           </NavLink>
           <NavLink className="nav-item nav-link" to="/login">

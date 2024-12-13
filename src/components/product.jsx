@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Product = ({ product, addToCart, restock, loggedInUser }) => {
   return (
@@ -14,17 +15,7 @@ const Product = ({ product, addToCart, restock, loggedInUser }) => {
       <div className="card-body text-center ">
         <h5 className="card-title mb-2">{product.name}</h5>
         <p className="card-text">{product.description}</p>
-        <p className="card-text">
-          Quantity: {product.quantity}&nbsp;
-          {loggedInUser.permission ? (
-            <button
-              className="btn btn-sm btn-outline-dark p-0 m-1"
-              onClick={restock}
-            >
-              +
-            </button>
-          ) : null}
-        </p>
+        <p className="card-text">Quantity: {product.quantity}&nbsp;</p>
         {product.quantity === 0 ? (
           <button
             className="btn btn-outline-dark disabled"
@@ -40,6 +31,15 @@ const Product = ({ product, addToCart, restock, loggedInUser }) => {
             ${product.price}
           </button>
         )}
+        {loggedInUser.permission ? (
+          <Link
+            className="btn btn-outline-dark m-1"
+            // onClick={restock}
+            to={`/shop/${product._id}`}
+          >
+            Change
+          </Link>
+        ) : null}
       </div>
     </div>
   );

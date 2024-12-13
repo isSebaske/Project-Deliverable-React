@@ -5,7 +5,7 @@ import Cart from "./components/cartPage";
 import NavBar from "./components/navBar";
 import Home from "./components/home";
 import LoginPage from "./components/loginPage";
-import AdminPage from "./components/adminPage";
+import AddProduct from "./components/addProduct";
 import { getUsers } from "./data/userData";
 import { getItems } from "./data/ItemsData";
 import _ from "lodash";
@@ -23,6 +23,7 @@ class App extends Component {
     searchTerm: "",
     loggedInUser: {
       email: "",
+      permission: false,
     },
   };
 
@@ -164,8 +165,9 @@ class App extends Component {
                 />
               )}
             />
+
             <Route
-              path="/shop/cart"
+              path="/cart"
               render={() => (
                 <Cart
                   cartItems={cartItems}
@@ -173,6 +175,16 @@ class App extends Component {
                   onAddOrReamove={(id, change) =>
                     this.handleAddOrReamove(id, change)
                   }
+                />
+              )}
+            />
+            <Route
+              path="/shop/:id"
+              render={(props) => (
+                <AddProduct
+                  {...props}
+                  loggedInUser={loggedInUser}
+                  products={products}
                 />
               )}
             />
@@ -205,10 +217,6 @@ class App extends Component {
             <Route
               path="/login"
               render={() => <LoginPage onLogin={this.handleLogin} />}
-            />
-            <Route
-              path="/admin"
-              render={() => <AdminPage loggedInUser={loggedInUser} />}
             />
             <Redirect from="/" exact to="/home" />
           </Switch>

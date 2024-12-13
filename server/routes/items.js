@@ -11,6 +11,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+    const item = await Item.findById(itemId);
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const newItem = new Item(req.body);
@@ -18,6 +33,21 @@ router.post("/", async (req, res) => {
     res.status(201).json(savedItem);
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const itemId = req.params.id;
+
+    const deletedItem = await Item.findByIdAndDelete(itemId);
+
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+    res.json({ message: "Item deleted successfully", item: deletedItem });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
