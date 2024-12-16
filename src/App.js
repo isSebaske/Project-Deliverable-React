@@ -29,7 +29,6 @@ class App extends Component {
 
   async componentDidMount() {
     const { data } = await getItems();
-    console.log(await getItems());
     const randomItem = await data[Math.floor(Math.random() * data.length)];
 
     this.setState({ products: data, randomItem });
@@ -125,6 +124,11 @@ class App extends Component {
     }
   };
 
+  handleUpdataItems = async () => {
+    const { data } = await getItems();
+    this.setState({ products: data });
+  };
+
   getFilteredProducts = () => {
     const { products, searchTerm, sortColumn } = this.state;
 
@@ -184,7 +188,7 @@ class App extends Component {
                 <AddProduct
                   {...props}
                   loggedInUser={loggedInUser}
-                  products={products}
+                  products={this.handleUpdataItems}
                 />
               )}
             />

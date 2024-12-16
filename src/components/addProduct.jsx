@@ -59,15 +59,12 @@ class AddProduct extends Component {
   };
 
   validate = () => {
-    const { error } = Joi.validate(this.state.data, this.schema, {
-      abortEarly: false,
-    });
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.state.data, this.schema, options);
     if (!error) return null;
 
     const errors = {};
-    error.details.forEach((detail) => {
-      errors[detail.path[0]] = detail.message;
-    });
+    for (let item of error.details) errors[item.path[0]] = item.message;
     return errors;
   };
 
@@ -78,16 +75,15 @@ class AddProduct extends Component {
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    try {
+    const { _id, ...itemData } = this.state.data;
+
+    if (_id) {
       await saveItem(this.state.data);
-      this.props.history.push("/shop");
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.name = ex.response.data;
-        this.setState({ errors });
-      }
+    } else {
+      await saveItem(itemData);
     }
+    this.props.products();
+    this.props.history.push("/shop");
   };
 
   handleDelete = async () => {
@@ -95,6 +91,7 @@ class AddProduct extends Component {
 
     if (window.confirm("Are you sure you want to delete this item?")) {
       await deleteItem(this.state.data._id);
+      this.props.products();
       this.props.history.push("/shop");
     }
   };
@@ -111,7 +108,9 @@ class AddProduct extends Component {
           onChange={this.handleChange}
           className="form-control form-control-sm"
         />
-        {errors[name] && <div className="text-danger">{errors[name]}</div>}
+        {errors[name] && typeof errors[name] === "string" && (
+          <div className="text-danger">{errors[name]}</div>
+        )}
       </div>
     );
   }
